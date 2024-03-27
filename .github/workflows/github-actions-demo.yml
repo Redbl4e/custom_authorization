@@ -15,7 +15,13 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: install dependencies
-        run: curl -sSL https://install.python-poetry.org | python3 - poetry install poetry update
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: poetry install
+        run: poetry install
+
+      - name: poetry update
+        run: poetry update
 
       - name: Run test
         run: pytest
