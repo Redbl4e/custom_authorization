@@ -18,6 +18,7 @@ jobs:
         run: curl -sSL https://install.python-poetry.org | python3 -
 
       - name: poetry shell
+
         run: poetry shell --no-interaction
 
 
