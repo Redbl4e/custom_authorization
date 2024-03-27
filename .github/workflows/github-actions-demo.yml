@@ -21,4 +21,4 @@ jobs:
         run: poetry install
 
       - name: Run test
-        run: python3 venv/bin/pytest
+        run: /home/runner/work/custom_authorization/venv/bin/pytest
