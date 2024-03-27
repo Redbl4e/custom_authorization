@@ -21,4 +21,4 @@ jobs:
         run: poetry install
 
       - name: Run test
-        run: pytest -v
+        run: python3 venv/bin/pytest
