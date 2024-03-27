@@ -55,13 +55,13 @@ user = TestUserModel()
 user_dict = user.to_dict()
 
 
-@pytest.fixture(scope="session", autouse=True)
-async def prepare_database():
-    assert settings.ENV_STATE == "TEST"
-    async with async_engine.begin() as conn:
-        await conn.run_sync(BaseModel.metadata.drop_all)
-        await conn.run_sync(BaseModel.metadata.create_all)
-    await user_repository.create(user_dict)
+# @pytest.fixture(scope="session", autouse=True)
+# async def prepare_database():
+#     assert settings.ENV_STATE == "TEST"
+#     async with async_engine.begin() as conn:
+#         await conn.run_sync(BaseModel.metadata.drop_all)
+#         await conn.run_sync(BaseModel.metadata.create_all)
+#     await user_repository.create(user_dict)
 
 
 @pytest.fixture(scope="function")

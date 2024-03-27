@@ -20,8 +20,5 @@ jobs:
       - name: poetry install
         run: poetry install
 
-      - name: poetry update
-        run: poetry update
-
       - name: Run test
-        run: pytest
+        run: pytest -v
