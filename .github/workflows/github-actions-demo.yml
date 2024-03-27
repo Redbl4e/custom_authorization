@@ -1,6 +1,9 @@
 name: GitHub Actions Test
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Замените на имя вашей основной ветки
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,20 +13,21 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: install dependencies
-        run: curl -sSL https://install.python-poetry.org | python3 -
 
-      - name: poetry shell
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
 
-        run: poetry shell --no-interaction
+      - name: Activate Poetry virtual environment
+        run: poetry config virtualenvs.create true
 
-
-      - name: poetry install
+      - name: Install dependencies
         run: poetry install
 
-      - name: Run test
-        run: pytest
+      - name: Run tests
+        run: poetry run pytest
