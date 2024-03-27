@@ -2,7 +2,8 @@ name: GitHub Actions Test
 on:
   push:
     branches:
-      - main  # Замените на имя вашей основной ветки
+      - main
+
 
 jobs:
   test:
