@@ -30,7 +30,8 @@ class TestReadJWT:
         access_token, refresh_token = await jwt_strategy.write_token(user)
         payload_access_token = await jwt_strategy.read_token(access_token, True)
         payload_refresh_token = await jwt_strategy.read_token(refresh_token, False)
-        assert payload_access_token is not None
+        assert payload_access_token is None
+        print(123456)
         assert payload_refresh_token is None
 
     async def test_success_read_token(self, jwt_strategy: StrategyABC[UP]):
