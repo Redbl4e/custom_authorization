@@ -48,6 +48,8 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Connect to PostgreSQL
+        env:
+          PGPASSWORD: 1234
         run: |
             psql -h localhost -U postgres -c 'CREATE DATABASE mydatabase;'
 
