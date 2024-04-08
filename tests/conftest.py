@@ -1,7 +1,8 @@
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any, Literal, Optional
 from uuid import UUID, uuid4
+
+from typing import Any, Literal, Optional
 
 import pytest
 from httpx import AsyncClient
