@@ -51,7 +51,7 @@ jobs:
         env:
           PGPASSWORD: 1234
         run: |
-            psql -h localhost -U postgres -c 'CREATE DATABASE mydatabase;'
+            psql -h localhost -U postgres -c 'CREATE DATABASE authtestdb;'
 
       - name: Run tests
         run: poetry run pytest
