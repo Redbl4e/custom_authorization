@@ -15,7 +15,6 @@ payload = {"sub": str(user.id), "aud": audience}
 class TestJWT:
     async def test_success_generate_infinite_jwt(self):
         token = generate_jwt(payload)
-        print(1234)
         decoded_payload = decode_jwt(token)
         assert decoded_payload["sub"] == payload["sub"]
         assert decoded_payload["aud"] == payload["aud"]
