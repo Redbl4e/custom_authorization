@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - test
   pull_request:
     branches:
       - master
@@ -40,8 +41,7 @@ jobs:
         run: sudo service postgresql start
       - name: Create test database
         run: |
-           psql -c 'CREATE DATABASE authtestdb;' -U postgres
-
+          psql -c 'CREATE DATABASE authtestdb;' -U postgres -h localhost -p 5432 -d postgres -W <<<"1234"
       - name: Run tests
         run: poetry run pytest
 
