@@ -41,7 +41,8 @@ jobs:
         run: sudo service postgresql start
       - name: Create test database
         run: |
-          psql -c 'CREATE DATABASE authtestdb;' -U postgres -h localhost -p 5432 -d postgres -W <<<"1234"
+          psql -c 'CREATE DATABASE authtestdb;' -U postgres -h localhost -p 5432 -d postgres -w <<<"1234"
+
       - name: Run tests
         run: poetry run pytest
 
