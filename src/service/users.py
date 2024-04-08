@@ -1,10 +1,11 @@
+from typing import Optional
 from uuid import UUID
 
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import EmailStr
 
 from src.core.types import UP
-from src.repository.user import user_repository
+from src.repository.user import user_repository, UserRepository
 from src.schemas.user import UserCreateSchema
 from src.service.auth.exceptions import (
     UserAlreadyExists,
@@ -21,17 +22,21 @@ from src.service.auth.validators.validators import (
     NumericPasswordValidator,
     MinimumLengthValidator
 )
+from src.utils.repository.base import RepositoryABC
 from src.utils.repository.exceptions import IntegrityError, RepositoryException
-from src.utils.repository.sqlalchemy import SQLAlchemyRepository
 
 
 class UserService:
-    def __init__(self,
-                 user_repo: SQLAlchemyRepository[UP, UUID],
-                 password_helper: PasswordHelperABC
-                 ):
-        self.user_repo = user_repo
-        self.password_helper = password_helper
+
+    def __init__(
+            self,
+            user_repo: Optional[RepositoryABC[UP, UUID]] = None,
+            password_helper: Optional[PasswordHelperABC] = None,
+    ):
+        self.user_repo = user_repo if user_repo else UserRepository()
+        self.password_helper = (
+            password_helper if password_helper else passlib_password_helper
+        )
 
     async def get_user_by_id(self, id_: UUID) -> UP:
         """Поиск пользователя по UUID

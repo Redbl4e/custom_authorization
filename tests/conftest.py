@@ -1,7 +1,8 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
+from uuid import UUID, uuid4
+
 from typing import Any, Literal, Optional
-from uuid import UUID
 
 import pytest
 from httpx import AsyncClient
@@ -11,17 +12,19 @@ from src.core.types import UserProtocol
 from src.database import BaseModel, async_engine, async_session_marker
 from src.main import app as fastapi_app
 from src.repository.user import user_repository
+from src.schemas.user import UserCreateSchema
 from src.service.auth.config import get_jwt_strategy
 from src.service.auth.jwt import generate_jwt
 from src.service.auth.strategy.base import StrategyABC
 from src.service.auth.transport import TransportABC, BearerTransport
+from src.service.users import UserService
 
-base_url = "http://127.0.0.0:8000/v1"
+base_url = "http://127.0.0.0:8000"
 
 
 @dataclass(slots=True)
-class TestUserModel(UserProtocol):
-    id: UUID = UUID("a45cb4ba-d878-4db4-b608-9414f56821e5")
+class UserTestModel(UserProtocol):
+    id: UUID = field(default_factory=uuid4)
     first_name: str = "test"
     last_name: str = "test"
     patronymic: str = "test"
@@ -51,17 +54,37 @@ class TestUserModel(UserProtocol):
         }
 
 
-user = TestUserModel()
+user = UserTestModel()
 user_dict = user.to_dict()
 
 
-# @pytest.fixture(scope="session", autouse=True)
-# async def prepare_database():
-#     assert settings.ENV_STATE == "TEST"
-#     async with async_engine.begin() as conn:
-#         await conn.run_sync(BaseModel.metadata.drop_all)
-#         await conn.run_sync(BaseModel.metadata.create_all)
-#     await user_repository.create(user_dict)
+@pytest.fixture(scope="session")
+def user_sc() -> UserCreateSchema:
+    user_data: dict = user_dict
+    user_data["password"] = "DGYVQ1vHeb"
+
+    user_dict.pop("hashed_password")
+    user_dict.pop("id")
+    user_dict.pop("is_active")
+    user_dict.pop("is_verified")
+    user_dict.pop("created_at")
+    user_dict.pop("updated_at")
+
+    return UserCreateSchema(**user_dict)
+
+
+@pytest.fixture(scope="session")
+async def real_user_service():
+    return UserService()
+
+
+@pytest.fixture(scope="session", autouse=True)
+async def prepare_database():
+    assert settings.DB.ENV_STATE == "TEST"
+    async with async_engine.begin() as conn:
+        await conn.run_sync(BaseModel.metadata.drop_all)
+        await conn.run_sync(BaseModel.metadata.create_all)
+    await user_repository.create(user_dict)
 
 
 @pytest.fixture(scope="function")
@@ -79,9 +102,9 @@ async def session():
 @pytest.fixture
 def token():
     def _token(
-        token_type: Literal["access", "refresh"],
-        lifetime: int = 1000,
-        user_id: Optional[str] = None,
+            token_type: Literal["access", "refresh"],
+            lifetime: int = 1000,
+            user_id: Optional[str] = None,
     ):
         payload = {"aud": settings.AUTH.JWT_AUDIENCE, "token_type": token_type}
         if user_id is not None:
@@ -102,6 +125,3 @@ def jwt_strategy() -> StrategyABC:
 @pytest.fixture
 def bearer_transport() -> TransportABC:
     return BearerTransport(token_url="user/login")
-
-
-

@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - master
+
   pull_request:
     branches:
       - master
+
 
 
 jobs:
@@ -15,6 +17,18 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.12"]
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: 1234
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,6 +47,11 @@ jobs:
 
       - name: Install dependencies
         run: poetry install
+      - name: Connect to PostgreSQL
+        env:
+          PGPASSWORD: 1234
+        run: |
+            psql -h localhost -U postgres -c 'CREATE DATABASE authtestdb;'
 
       - name: Run tests
         run: poetry run pytest

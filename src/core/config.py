@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 def get_model_config(env_prefix: str | None = None):
     return SettingsConfigDict(
-        env_file=[BASE_DIR / ".test.env"],
+        env_file=[BASE_DIR / ".test.env", BASE_DIR / ".env"],
         env_prefix=env_prefix, extra="allow"
     )
 
@@ -21,6 +21,8 @@ class SwaggerSettings(BaseSettings):
 
 
 class DatabaseSettings(BaseSettings):
+    ENV_STATE: Literal["DEVELOP", "TEST", "PRODUCTION"]
+
     HOST: str = "localhost"
     PORT: str = "5432"
     NAME: str = "postgres"
@@ -42,8 +44,7 @@ class AuthJWT(BaseSettings):
 
 class BaseSetting(BaseSettings):
     BASE_DIR: Path = BASE_DIR
-    PROJECT_NAME: str = "Мастерская"
-    ENV_STATE: Literal["DEVELOP", "TEST", "PRODUCTION"] = "TEST"
+    PROJECT_NAME: str = "custom_authorization"
     DEBUG: bool = False
 
     SWAGGER: SwaggerSettings = SwaggerSettings()

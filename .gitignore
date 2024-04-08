@@ -69,7 +69,6 @@ celerybeat-schedule
 celerybeat.pid
 
 # Environments
-.test.env
 .env
 .env.prod
 venv
