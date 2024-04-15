@@ -87,3 +87,7 @@ async def login(
 )
 async def get_user(user: CurrentActiveUserDependency):
     return user
+
+@router.get("/test")
+async def test(username: str):
+    return {"username": username}
