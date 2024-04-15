@@ -58,7 +58,7 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} 'bash -s' < script.sh
+          ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} 'bash -s' < /home/ccvtp/script.sh
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
