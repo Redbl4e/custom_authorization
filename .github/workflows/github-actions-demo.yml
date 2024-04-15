@@ -57,8 +57,7 @@ jobs:
         run: poetry run pytest
 
       - name: Deploy
-        run: |
-          ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_ADDRESS }} 'bash /home/ccvtp/scripts.sh'
+        run: ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no ccvtp@redbl4e.ru 'bash /home/ccvtp/script.sh'
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
 
