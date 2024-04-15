@@ -57,7 +57,7 @@ jobs:
         run: poetry run pytest
 
       - name: Deploy
-        run: ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no -o StrictHostKeyChecking=no ccvtp@redbl4e.ru 'bash /home/ccvtp/script.sh'
+        run: ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no -o StrictHostKeyChecking=no ccvtp@redbl4e.ru 'echo ${{ secrets.SSH_PASSWORD }} | sudo -S bash /home/ccvtp/script.sh'
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
 
