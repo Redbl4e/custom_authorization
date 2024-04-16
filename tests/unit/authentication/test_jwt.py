@@ -29,3 +29,4 @@ class TestJWT:
         assert decoded_payload["exp"] == pytest.approx(
             end_of_life_token_timestamp, abs=1
         )
+
