@@ -17,7 +17,7 @@ from src.service.auth.config import get_jwt_strategy
 from src.service.auth.jwt import generate_jwt
 from src.service.auth.strategy.base import StrategyABC
 from src.service.auth.transport import TransportABC, BearerTransport
-from src.service.users import UserService
+from src.service.auth.service import UserService
 
 base_url = "http://127.0.0.0:8000"
 
