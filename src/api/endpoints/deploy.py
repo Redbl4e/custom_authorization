@@ -12,6 +12,7 @@ async def deploy(
 
 ):
     try:
+        #test
         deploy_service.rebuilding_the_project(token)
     except Exception:
         raise HTTPException(status_code=403)
