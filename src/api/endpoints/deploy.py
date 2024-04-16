@@ -9,7 +9,6 @@ router = APIRouter()
 async def deploy(
         token: str,
         deploy_service: DeployServiceDependency
-
 ):
     try:
         #test
