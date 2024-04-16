@@ -38,30 +38,31 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-#      - name: Install Poetry
-#        run: |
-#          curl -sSL https://install.python-poetry.org | python3 -
-#
-#      - name: Activate Poetry virtual environment
-#        run: poetry config virtualenvs.create true
-#
-#      - name: Install dependencies
-#        run: poetry install
-#      - name: Connect to PostgreSQL
-#        env:
-#          PGPASSWORD: 1234
-#        run: |
-#            psql -h localhost -U postgres -c 'CREATE DATABASE authtestdb;'
-#
-#      - name: Run tests
-#        run: poetry run pytest
-
-
-      - name: Deploy
+      - name: Install Poetry
         run: |
-          curl -X GET "http://${{ secrets.SERVER_ADDRESS }}/deploy/?token=${{ secrets.TOKEN }}"
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Activate Poetry virtual environment
+        run: poetry config virtualenvs.create true
+
+      - name: Install dependencies
+        run: poetry install
+      - name: Connect to PostgreSQL
         env:
-          TOKEN: ${{ secrets.TOKEN }}
-          SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
+          PGPASSWORD: 1234
+        run: |
+            psql -h localhost -U postgres -c 'CREATE DATABASE authtestdb;'
+
+      - name: Run tests
+        run: poetry run pytest
+
+
+#      - name: Deploy
+#          - run: mkdir "$HOME/.ssh"
+#          - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
+#          - run: chmod 600 "$HOME/.ssh/key"
+#        env:
+#          TOKEN: ${{ secrets.TOKEN }}
+#          SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
 
 
