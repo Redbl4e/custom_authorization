@@ -24,7 +24,7 @@ class TestJWT:
         decoded_payload = decode_jwt(token)
         end_of_life_token = datetime.now(UTC) + timedelta(seconds=3600)
         end_of_life_token_timestamp = round(end_of_life_token.timestamp())
-        assert decoded_payload["sub"] != payload["sub"]
+        assert decoded_payload["sub"] == payload["sub"]
         assert decoded_payload["aud"] == payload["aud"]
         assert decoded_payload["exp"] == pytest.approx(
             end_of_life_token_timestamp, abs=1
