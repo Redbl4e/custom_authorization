@@ -7,7 +7,6 @@ from src.service.auth.strategy.base import (
     StrategyABC,
     StrategyDestroyNotSupportedError
 )
-from src.service.users import UserService
 
 
 class JWTStrategy(StrategyABC[UP]):

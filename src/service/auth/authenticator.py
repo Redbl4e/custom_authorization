@@ -8,7 +8,7 @@ from makefun import with_signature
 from src.core.types import UP
 from src.service.auth.backend import AuthenticationBackend
 from src.service.auth.strategy.base import StrategyABC
-from src.service.users import get_user_service, UserService
+from src.service.auth.service import get_user_service, UserService
 
 INVALID_CHARS_PATTERN = re.compile(r"[^0-9a-zA-Z_]")
 INVALID_LEADING_CHARS_PATTERN = re.compile(r"^[^a-zA-Z_]+")

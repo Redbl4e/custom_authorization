@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from typing import Generic, Optional, Any
 
 from src.core.types import UP
-from src.service.users import UserService
 
 
 class StrategyDestroyNotSupportedError(Exception):

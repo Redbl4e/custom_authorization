@@ -6,8 +6,8 @@ from httpx import AsyncClient
 from src.schemas.user import UserCreateSchema
 from src.service.auth.exceptions import UserNotExists
 from src.service.auth.strategy import StrategyABC
-from src.service.users import UserService
-from tests.conftest import UserTestModel, user_dict, user
+from src.service.auth.service import UserService
+from tests.conftest import user
 
 
 @pytest.mark.authenticator

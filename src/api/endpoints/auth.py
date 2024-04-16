@@ -87,3 +87,4 @@ async def login(
 )
 async def get_user(user: CurrentActiveUserDependency):
     return user
+
