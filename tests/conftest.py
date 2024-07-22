@@ -3,9 +3,9 @@ from datetime import datetime
 from uuid import UUID, uuid4
 
 from typing import Any, Literal, Optional
+from httpx import AsyncClient
 
 import pytest
-from httpx import AsyncClient
 
 from src.core.config import settings
 from src.core.types import UserProtocol
