@@ -21,7 +21,7 @@ class SwaggerSettings(BaseSettings):
 
 
 class DatabaseSettings(BaseSettings):
-    ENV_STATE: Literal["DEVELOP", "TEST", "PRODUCTION"]
+    ENV_STATE: Literal["DEVELOP", "TEST", "PRODUCTION"] = "TEST"
 
     HOST: str = "localhost"
     PORT: str = "5432"
