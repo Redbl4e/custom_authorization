@@ -56,11 +56,5 @@ jobs:
       - name: Run tests
         run: poetry run pytest
 
-      - name: Deploy
-        run: |
-          curl -X GET "http://${{ secrets.SERVER_ADDRESS }}/deploy/?token=${{ secrets.TOKEN }}"
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-          SERVER_ADDRESS: ${{ secrets.SERVER_ADDRESS }}
 
 

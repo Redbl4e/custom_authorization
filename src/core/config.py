@@ -27,7 +27,7 @@ class DatabaseSettings(BaseSettings):
     PORT: str = "5432"
     NAME: str = "postgres"
     USERNAME: str = "postgres"
-    PASSWORD: str = "postgres"
+    PASSWORD: str = "1234"
 
     model_config = get_model_config("DB_")
 
@@ -53,4 +53,3 @@ class BaseSetting(BaseSettings):
 
 
 settings = BaseSetting()
-print(settings.DB.NAME)
