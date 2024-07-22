@@ -125,3 +125,6 @@ def jwt_strategy() -> StrategyABC:
 @pytest.fixture
 def bearer_transport() -> TransportABC:
     return BearerTransport(token_url="user/login")
+
+
+

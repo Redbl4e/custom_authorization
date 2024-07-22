@@ -1,8 +1,9 @@
 from fastapi import HTTPException, Depends
 
-from fastapi import APIRouter
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
+from fastapi import APIRouter
+
 
 from src.api.dependencies import UserServiceDependency, CurrentActiveUserDependency
 from src.api.error_code import AuthErrorCode
